@@ -1303,7 +1303,7 @@ elif not module_mode or (macosx_target and not static_libpython):
 
     if python_prefix != "/usr" and "linux" in sys.platform:
         env.Append(
-            LIBS = ["dl", "pthread", "util", "rt", 'm']
+            LIBS = ["dl", "pthread", "util", "rt", 'm', 'z']
         )
 
         if gcc_mode and not clang_mode:
@@ -1427,10 +1427,7 @@ if gcc_mode and not macosx_target and not win_target and not module_mode:
 
 def _getLinkerArch():
     if "linux" in sys.platform:
-        python_exe = os.environ["NUITKA_PYTHON_EXE_PATH"]
-        assert os.path.exists(python_exe), python_exe
-
-        command = ["objdump", "-f", python_exe]
+        command = [env["CC"], "-dumpmachine"]
 
         if show_scons_mode:
             print("Scons: Detecting Linux target arch with :", command)
@@ -1455,9 +1452,7 @@ def _getLinkerArch():
         if str is not bytes:
             data = data.decode(sys.stdout.encoding)
 
-        for line in data.splitlines():
-            if " file format " in line:
-                return line.split(" file format ")[-1]
+        return data.strip()
     else:
         # TODO: Missing for MacOS, FreeBSD, other Linux
         return None

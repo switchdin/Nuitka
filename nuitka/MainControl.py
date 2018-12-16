@@ -495,8 +495,8 @@ def runScons(main_module, quiet):
         "experimental"    : ','.join(Options.getExperimentalIndications()),
         "trace_mode"      : _asBoolStr(Options.shallTraceExecution()),
         "python_version"  : python_version_str,
-        "target_arch"     : Utils.getArchitecture(),
-        "python_prefix"   : sys.prefix,
+        "target_arch"     : Options.targetArch() or Utils.getArchitecture(),
+        "python_prefix"   : Options.customUsrDir() or sys.prefix,
         "nuitka_src"      : SconsInterface.getSconsDataPath(),
         "nuitka_cache"    : getCacheDir(),
         "module_count"    : "%d" % (

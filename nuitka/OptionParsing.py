@@ -141,6 +141,23 @@ Enable warnings for unusual code detected at compile time.""",
 )
 
 parser.add_option(
+    "--custom-usr-dir",
+    default = None,
+    help    = """\
+When cross compiling, specifies a custom 'usr' directory that
+contains the python libraries and header files for the target.""",
+)
+
+parser.add_option(
+    "--target-arch",
+    default = None,
+    help    = """\
+When cross compiling, specifies the target architecture. To
+determine what this value should be for linux targets,
+run 'uname -m' on the target machine.""",
+)
+
+parser.add_option(
     "--assume-yes-for-downloads",
     action  = "store_true",
     dest    = "assume_yes_for_downloads",

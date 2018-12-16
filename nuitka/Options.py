@@ -332,6 +332,14 @@ def getIntendedPythonArch():
     return options.python_arch
 
 
+def targetArch():
+    return options.target_arch
+
+
+def customUsrDir():
+    return options.custom_usr_dir
+
+
 def isExperimental(indication):
     """ Are experimental features to be enabled."""
 
